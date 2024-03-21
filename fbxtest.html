@@ -1,0 +1,69 @@
+
+<body>
+
+<div class="xrcontainer" id="container"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://code4fukui.github.io/three.js/build/three.module.js",
+    "three/addons/": "https://code4fukui.github.io/three.js/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import { THREE, createThree, loadGLB } from "https://code4fukui.github.io/ar-snow/egthree.js";
+const { scene, camera, renderer, setAnimationLoop } = createThree(container); // document.body);
+
+/*
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+
+let model;
+let mixer;
+const loader = new FBXLoader();
+loader.load( 'desk1.fbx', function ( object ) {
+    object.scale.set(1, 1, 1)
+    //シーン内の特定のオブジェクトのアニメーション用のプレーヤー(アニメーションの調整)
+    mixer = new THREE.AnimationMixer( object );
+    if (object.animations.length > 0) {
+        //Animation Actionを生成
+        const action = mixer.clipAction( object.animations[ 0 ] );
+
+        //アニメーションを再生する
+        action.play();
+
+        //オブジェクトとすべての子孫に対してコールバックを実行
+        object.traverse((child)=>{
+            if(child.isMesh){
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+    }
+    scene.add( object );
+}, (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+}, (error) => {
+    console.log(error)
+});
+*/
+
+//const path = "https://code4fukui.github.io/ar-kanirobo/kanirobo1.glb";
+const path = "./chair1.glb"
+const model = await loadGLB(path);
+scene.add(model);
+console.log(model);
+
+function animate() {
+    if (mixer) {
+        mixer.update(clock.getDelta());
+    }
+}
+
+//読み込んだシーンが暗いので、明るくする
+//        renderer.outputEncoding = THREE.sRGBEncoding;
+
+
+</script>
+</body>
